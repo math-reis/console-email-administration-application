@@ -1,3 +1,1 @@
-# empty3
-
-empty repository
+# SQL Exercises
