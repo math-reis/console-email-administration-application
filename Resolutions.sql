@@ -186,5 +186,38 @@ FROM DUAL;
 SELECT TO_DATE('15/09/2015', 'DD/MM/YYYY') - TO_DATE('01/02/2015', 'DD/MM/YYYY')
 FROM DUAL;
 
--- Pg. 51
+-- Pg. 53
+
+-- Exercício 1
+-- Concatenar o nome e o sobrenome dos empregados do departamento 100 e mostrar
+-- com o cabeçalho “Nome completo”.
+
+SELECT NOME || ' ' || SOBRENOME AS "Nome completo"
+FROM EMPREGADO;
+
+-- Exercício 2
+-- Mostrar o salário diário arredondado em duas casas decimais e o salário 
+-- diário inteiro (sem casas decimais) para os empregados do departamento 30, 
+-- ordenados pelo nome do empregado. Obs.: Salário Diário = dividir por 30.
+
+SELECT ROUND(SALARIO / 30, 2), ROUND(SALARIO / 30)
+FROM EMPREGADO
+WHERE COD_DEP = 30
+ORDER BY NOME;
+
+-- Exercício 3
+-- A partir do histórico dos empregados, informe o COD_EMP, o COD_SERVICO e o 
+-- número de dias que o empregado ficou no serviço. Apresente o resultado para 
+-- os departamentos 50 e 110. Mostre o número de dias como DIAS.
+
+SELECT COD_EMP, COD_SERVICO, DATA_FIM - DATA_INICIO AS DIAS
+FROM HISTORIA_EMPREGADO
+WHERE COD_DEP IN (50, 110);
+
+-- Pg. 
+
+
+
+
+
 
