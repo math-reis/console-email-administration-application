@@ -120,16 +120,33 @@ WHERE CIDADE LIKE 'S%';
 
 -- Pg. 38
 
-PAREI NA 36
+-- Exercício 1
+-- Mostre a frase 'Eu gosto de trabalhar com SQL', concatenando três grupos de 
+-- caracteres diferentes.
 
+SELECT 'Eu gosto ' || 'de trabalhar ' || 'com SQL'
+FROM DUAL;
 
+-- Exercício 2
+-- Descubra em que posição ocorre a letra 'n' na palavra 
+-- 'inconstitucionalissimamente', a partir da sétima posição. E a partir da 
+-- posição 15?
 
+SELECT INSTR('inconstitucionalissimamente', 'n', 7), 
+       INSTR('inconstitucionalissimamente', 'n', 15)
+FROM DUAL;
 
+-- Exercício 3
+-- Como fazer para adicionar 'tr' à esquerda de 'Sol' até completar 12 posições.
+-- Observe a diferenciação do resultado se forem completadas 12 ou 11 posições.
 
+SELECT LPAD('Sol', 12, 'tr')
+FROM DUAL;
 
+-- Exercício 4
+-- Qual o comprimento do string resultante da operação de retirada de todos os 
+-- brancos à esquerda de ' Teste ', sendo que há 3 brancos à esquerda e 3 à 
+-- direita da palavra ?
 
-
-
-
-
-
+SELECT LENGTH(LTRIM('   Teste   '))
+FROM DUAL;
