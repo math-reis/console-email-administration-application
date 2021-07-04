@@ -150,3 +150,41 @@ FROM DUAL;
 
 SELECT LENGTH(LTRIM('   Teste   '))
 FROM DUAL;
+
+-- Pg. 48
+
+-- Exercício 1
+-- Faça com que a data '20110123 13:24:14' seja mostrada como 
+-- '23/01/2011 13-24-14'.
+
+SELECT TO_CHAR(TO_DATE('20110123 13:24:14', 'yyyymmdd hh24:mi:ss'), 
+       'DD/MM/YYYY HH24-MI-SS')
+FROM (SELECT TO_DATE('20110123 13:24:14', 'yyyymmdd hh24:mi:ss')
+      FROM DUAL);
+
+-- Exercício 2
+-- Descobrir o último dia do mês atual.
+
+SELECT LAST_DAY(SYSDATE)
+FROM DUAL;
+
+-- Exercício 3
+-- Qual será o próximo sábado no formato DD/MM/YYYY.
+
+SELECT NEXT_DAY(SYSDATE, 7)
+FROM DUAL;
+
+-- Exercício 4
+-- Somar três dias a data atual e formatar no formato DD/MM/YYYY.
+
+SELECT TO_CHAR(SYSDATE + 3, 'DD/MM/YYYY')
+FROM DUAL;
+
+-- Exercício 5
+-- Descobrir quantos dias existem entre 01/02/2015 e 15/09/2015.
+
+SELECT TO_DATE('15/09/2015', 'DD/MM/YYYY') - TO_DATE('01/02/2015', 'DD/MM/YYYY')
+FROM DUAL;
+
+-- Pg. 51
+
