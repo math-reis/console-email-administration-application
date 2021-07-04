@@ -43,7 +43,7 @@ FROM LOCAL;
 -- Selecione o nome do empregado e o seu percentual de comissão, apresentando a 
 -- comissão com o cabeçalho "COMISSAO".
 
-SELECT NOME, PCT_COMISSAO AS "COMISSAO" 
+SELECT NOME, PCT_COMISSAO "COMISSAO" 
 FROM EMPREGADO;
 
 -- Pg. 25
@@ -53,7 +53,7 @@ FROM EMPREGADO;
 -- para cada um deles. O cabeçalho da coluna de diferenças deve ser “Dif”. 
 -- Colocar a saída em ordem descendente das diferenças.
 
-SELECT NOME_SERVICO, SALARIO_MAX - SALARIO_MIN AS "Dif"
+SELECT NOME_SERVICO, SALARIO_MAX - SALARIO_MIN "Dif"
 FROM SERVICO
 ORDER BY "Dif" DESC;
 
@@ -192,7 +192,7 @@ FROM DUAL;
 -- Concatenar o nome e o sobrenome dos empregados do departamento 100 e mostrar
 -- com o cabeçalho “Nome completo”.
 
-SELECT NOME || ' ' || SOBRENOME AS "Nome completo"
+SELECT NOME || ' ' || SOBRENOME "Nome completo"
 FROM EMPREGADO;
 
 -- Exercício 2
@@ -210,13 +210,115 @@ ORDER BY NOME;
 -- número de dias que o empregado ficou no serviço. Apresente o resultado para 
 -- os departamentos 50 e 110. Mostre o número de dias como DIAS.
 
-SELECT COD_EMP, COD_SERVICO, DATA_FIM - DATA_INICIO AS DIAS
+SELECT COD_EMP, COD_SERVICO, DATA_FIM - DATA_INICIO DIAS
 FROM HISTORIA_EMPREGADO
 WHERE COD_DEP IN (50, 110);
 
--- Pg. 
+-- Pg. 60
 
+-- Exercício 1
+-- Mostrar a quantidade de empregados em cada departamento da empresa, ordenados
+-- pelo código do departamento.
 
+SELECT COUNT(COD_EMP)
+FROM EMPREGADO;
+
+-- Exercício 2
+-- Mostrar a soma dos salários dos empregados da empresa, por COD_SERVICO, 
+-- apenas quando o total de salários for maior do que 15.000, ordenados pelo 
+-- total de salários, em ordem descendente. Mostrar o total como TOTAL.
+
+SELECT COD_SERVICO, SUM(SALARIO) TOTAL
+FROM EMPREGADO
+GROUP BY COD_SERVICO
+HAVING SUM(SALARIO) > 15000
+ORDER BY TOTAL DESC;
+
+-- Pg. 72
+
+-- Exercício 1
+-- Selecione o nome dos países localizados na região "Europe".
+
+SELECT PAI.NOME_PAIS
+FROM PAIS PAI
+JOIN REGIAO REG
+ON (PAI.COD_REGIAO = REG.COD_REGIAO)
+WHERE REG.NOME_REGIAO = 'Europe';
+
+-- Exercício 2
+-- Selecione o nome do empregado e o nome do departamento para os empregados na 
+-- cidade de Oxford.
+
+SELECT EMP.NOME, DEP.NOME_DEP
+FROM EMPREGADO EMP
+JOIN DEPARTAMENTO DEP
+ON (EMP.COD_DEP = DEP.COD_DEP)
+JOIN LOCAL LOC
+ON (DEP.COD_LOCAL = LOC.COD_LOCAL)
+WHERE LOC.CIDADE = 'Oxford';
+
+-- Exercício 3
+-- Selecione o nome do empregado e o nome do gerente para os empregados que 
+-- tenham salário maior do que 8000.
+
+SELECT EMP.NOME, GER.NOME
+FROM EMPREGADO EMP
+JOIN EMPREGADO GER
+ON (EMP.COD_GERENTE = GER.COD_EMP)
+WHERE EMP.SALARIO > 8000;
+
+-- Exercício 4
+-- Informe o número de empregados cujo gerente é o Steven.
+
+SELECT COUNT(EMP.NOME)
+FROM EMPREGADO EMP
+JOIN EMPREGADO GER
+ON (EMP.COD_GERENTE = GER.COD_EMP)
+WHERE GER.NOME = 'Steven';
+
+-- Exercício 5
+-- Mostre nome e sobrenome de todos os empregados que já tenham executado ou 
+-- estejam executando o serviço de 'Sales Manager'.
+
+SELECT EMP.NOME, EMP.SOBRENOME
+FROM EMPREGADO EMP
+JOIN SERVICO SER
+ON (EMP.COD_SERVICO = SER.COD_SERVICO)
+WHERE SER.NOME_SERVICO = 'Sales Manager'
+UNION ALL
+SELECT EMP.NOME, EMP.SOBRENOME
+FROM HISTORIA_EMPREGADO HIS
+JOIN EMPREGADO EMP 
+ON (EMP.COD_EMP = HIS.COD_EMP)
+JOIN SERVICO SER
+ON (HIS.COD_SERVICO = SER.COD_SERVICO)
+WHERE SER.NOME_SERVICO = 'Sales Manager';
+
+-- Exercício 6
+-- Mostre o nome dos departamentos e da cidade em que se localizam, para os 
+-- departamentos localizados no Canada e em Germany (use UNION).
+
+SELECT DEP.NOME_DEP, LOC.CIDADE
+FROM DEPARTAMENTO DEP
+JOIN LOCAL LOC
+ON (DEP.COD_LOCAL = LOC.COD_LOCAL)
+JOIN PAIS PAI
+ON (LOC.COD_PAIS = PAI.COD_PAIS)
+WHERE PAI.NOME_PAIS = 'Canada'
+UNION
+SELECT DEP.NOME_DEP, LOC.CIDADE
+FROM DEPARTAMENTO DEP
+JOIN LOCAL LOC
+ON (DEP.COD_LOCAL = LOC.COD_LOCAL)
+JOIN PAIS PAI
+ON (LOC.COD_PAIS = PAI.COD_PAIS)
+WHERE PAI.NOME_PAIS = 'Germany';
+
+-- Pg. 79
+
+-- Pg. 80
+
+-- Pg. 81
 
 
 
