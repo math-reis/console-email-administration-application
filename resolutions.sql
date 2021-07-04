@@ -313,13 +313,3 @@ ON (DEP.COD_LOCAL = LOC.COD_LOCAL)
 JOIN PAIS PAI
 ON (LOC.COD_PAIS = PAI.COD_PAIS)
 WHERE PAI.NOME_PAIS = 'Germany';
-
--- Pg. 79
-
--- Pg. 80
-
--- Pg. 81
-
-
-
-
