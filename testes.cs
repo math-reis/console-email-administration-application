@@ -289,6 +289,73 @@ public void IncluirCnpjInvalido()
     MMAssert.AreEqual(mensagemEsperada, retornoInclusao.Mensagem.ParaUsuario);
 }
 
+public void IncluirNomeInvalidoUmaPalavra()
+{
+    TOBoletoBanrisul toBoletoBanrisul = new TOBoletoBanrisul();
+    toBoletoBanrisul.cod_nosso_nro = 123;
+    toBoletoBanrisul.cpf_cnpj_sacado = "02321557044";
+    toBoletoBanrisul.tipo_sacado = TipoPessoa.fisica;
+    toBoletoBanrisul.nome_sacado = "Matheus"; //nome inválido
+    toBoletoBanrisul.cod_moeda = TipoMoeda.real;
+    toBoletoBanrisul.valor_documento = 1000m;
+    toBoletoBanrisul.cod_operador = "100";
+    toBoletoBanrisul.ult_atualizacao = DateTime.Now.Date; 
+    Retorno<Int32> retornoInclusao = this.RN.Incluir(toBoletoBanrisul);
+    MMAssert.IsFalse(retornoInclusao.OK);
+    string mensagemEsperada = string.Format(NOME_INVALIDO);
+    MMAssert.AreEqual(mensagemEsperada, retornoInclusao.Mensagem.ParaUsuario);
+}
+
+public void IncluirNomeInvalidoUDuasPalavrasUmaLetras()
+{
+    TOBoletoBanrisul toBoletoBanrisul = new TOBoletoBanrisul();
+    toBoletoBanrisul.cod_nosso_nro = 123;
+    toBoletoBanrisul.cpf_cnpj_sacado = "02321557044";
+    toBoletoBanrisul.tipo_sacado = TipoPessoa.fisica;
+    toBoletoBanrisul.nome_sacado = "A B"; //nome inválido
+    toBoletoBanrisul.cod_moeda = TipoMoeda.real;
+    toBoletoBanrisul.valor_documento = 1000m;
+    toBoletoBanrisul.cod_operador = "100";
+    toBoletoBanrisul.ult_atualizacao = DateTime.Now.Date; 
+    Retorno<Int32> retornoInclusao = this.RN.Incluir(toBoletoBanrisul);
+    MMAssert.IsFalse(retornoInclusao.OK);
+    string mensagemEsperada = string.Format(NOME_INVALIDO);
+    MMAssert.AreEqual(mensagemEsperada, retornoInclusao.Mensagem.ParaUsuario);
+}
+
+public void IncluirValorDocInvalidoMenorZero()
+{
+    TOBoletoBanrisul toBoletoBanrisul = new TOBoletoBanrisul();
+    toBoletoBanrisul.cod_nosso_nro = 123;
+    toBoletoBanrisul.cpf_cnpj_sacado = "02321557044";
+    toBoletoBanrisul.tipo_sacado = TipoPessoa.fisica;
+    toBoletoBanrisul.nome_sacado = "Ab Cd";
+    toBoletoBanrisul.cod_moeda = TipoMoeda.real;
+    toBoletoBanrisul.valor_documento = -1000m; //valor inválido
+    toBoletoBanrisul.cod_operador = "100";
+    toBoletoBanrisul.ult_atualizacao = DateTime.Now.Date; 
+    Retorno<Int32> retornoInclusao = this.RN.Incluir(toBoletoBanrisul);
+    MMAssert.IsFalse(retornoInclusao.OK);
+    string mensagemEsperada = string.Format(VALOR_DOC);
+    MMAssert.AreEqual(mensagemEsperada, retornoInclusao.Mensagem.ParaUsuario);
+}
+
+public void IncluirValorDocInvalidoDezMilhoes()
+{
+    TOBoletoBanrisul toBoletoBanrisul = new TOBoletoBanrisul();
+    toBoletoBanrisul.cod_nosso_nro = 123;
+    toBoletoBanrisul.cpf_cnpj_sacado = "02321557044";
+    toBoletoBanrisul.tipo_sacado = TipoPessoa.fisica;
+    toBoletoBanrisul.nome_sacado = "Ab Cd";
+    toBoletoBanrisul.cod_moeda = TipoMoeda.real;
+    toBoletoBanrisul.valor_documento = -1000000m; //valor inválido
+    toBoletoBanrisul.cod_operador = "100";
+    toBoletoBanrisul.ult_atualizacao = DateTime.Now.Date; 
+    Retorno<Int32> retornoInclusao = this.RN.Incluir(toBoletoBanrisul);
+    MMAssert.IsFalse(retornoInclusao.OK);
+    string mensagemEsperada = string.Format(VALOR_DOC);
+    MMAssert.AreEqual(mensagemEsperada, retornoInclusao.Mensagem.ParaUsuario);
+}
 #region Teste de validação das RNs
 
 #endregion
@@ -303,7 +370,7 @@ private TOBoletoBanrisul PopularCamposObrigatorios()
     //toBoletoBanrisul.cpf_cnpj_sacado = "02321557044"; CPF_VALIDO
     //toBoletoBanrisul.cpf_cnpj_sacado = "70817279000186"; CNPJ_VALIDO
     //toBoletoBanrisul.tipo_sacado = TipoPessoa.fisica;
-    toBoletoBanrisul.nome_sacado = "Matheus Reis";
+    toBoletoBanrisul.nome_sacado = "Ab Cd";
     toBoletoBanrisul.cod_moeda = TipoMoeda.real;
     toBoletoBanrisul.valor_documento = 1000m;
     toBoletoBanrisul.cod_operador = "100";
